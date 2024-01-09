@@ -1,0 +1,27 @@
+[build-system]
+requires = [ "poetry-core",]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "app"
+version = "0.0.1"
+description = ""
+authors = ["Markus Lang"]
+readme = "README.md"
+packages = [{include = "src"}]
+
+[tool.poetry.dependencies]
+python = "3.11"
+typer = "^0.9.0"
+toml = "^0.10.2"
+colorama = "^0.4.6"
+
+[tool.poetry.group.dev.dependencies]
+isort = "^5.13.2"
+flake8 = "^7.0.0"
+black = "^23.12.1"
+tox = "^4.11.4"
+mypy = "^0.910"
+
+[tool.poetry.scripts]
+pbs = 'app.main:app'
