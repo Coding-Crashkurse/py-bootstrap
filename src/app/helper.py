@@ -1,8 +1,9 @@
-from pathlib import Path
+import re
 import subprocess
+from pathlib import Path
+
 import typer
 from colorama import Fore, Style
-import re
 
 
 def find_pyproject_toml(start_path: Path) -> bool:

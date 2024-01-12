@@ -1,10 +1,12 @@
 import platform
 import subprocess
-import typer
-from pathlib import Path
-import toml
 from datetime import datetime
-from app.helper import validate_project_name, validate_author_name
+from pathlib import Path
+
+import toml
+import typer
+
+from app.helper import validate_author_name, validate_project_name
 
 
 def install_poetry():
@@ -198,5 +200,41 @@ def create_simple_test(tests_dir: Path):
     test_content = """def test_example():
     assert 1 == 1
 """
-    test_file = tests_dir / "test_example.py"
+    test_file = tests_dir / "test_helper.py"
     test_file.write_text(test_content)
+
+
+def delete_project_files(project_name: str, fastapi: bool):
+    """Deletes all project files and directories."""
+    base_dir = Path.cwd()
+    paths_to_delete = [
+        base_dir / "pyproject.toml",
+        base_dir / "poetry.toml",
+        base_dir / "poetry.lock",
+        base_dir / ".pre-commit-config.yaml",
+        base_dir / "tox.ini",
+        base_dir / "README.md",
+        base_dir / "LICENSE.md",
+        base_dir / "tests",
+        base_dir / "src" / project_name,
+    ]
+
+    if fastapi:
+        paths_to_delete.append(base_dir / "src" / project_name / "main.py")
+
+    for path in paths_to_delete:
+        if path.is_file():
+            path.unlink()
+        elif path.is_dir():
+            for child in path.rglob("*"):
+                if child.is_file():
+                    child.unlink()
+            path.rmdir()
+
+    src_dir = base_dir / "src"
+    if src_dir.is_dir() and not any(src_dir.iterdir()):
+        src_dir.rmdir()
+    if base_dir.is_dir() and not any(base_dir.iterdir()):
+        base_dir.rmdir()
+
+    typer.echo(f"All files and directories for '{project_name}' have been deleted.")
