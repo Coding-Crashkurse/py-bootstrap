@@ -1,4 +1,4 @@
-# py-bootstrap
+# py-bootstrap-cli 
 
 ## Description
 `py-bootstrap` is a Python CLI application designed for easy setup and management of Python projects. It automates tasks like creating a structured project layout, setting up Poetry, managing virtual environments, and includes optional FastAPI support.
@@ -19,7 +19,7 @@ Install `py-bootstrap` using pip: `pip install py-bootstrap`
 
 
 ## Usage
-Commands provided by `py-bootstrap`:
+Commands provided by `py-bootstrap-cli`:
 
 ### Create a New Project
 `pbs new [project_name]`
